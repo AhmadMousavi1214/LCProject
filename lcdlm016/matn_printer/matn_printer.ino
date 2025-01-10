@@ -50,9 +50,10 @@ using namespace std;
 
 int adad_khali = 1000000;
 bool matnbede = true ; 
-String matn = "ramz ra vared konid";
+String matn = "adadi nazadid";
 int adad = adad_khali ; 
 String matn_adad = ""; 
+bool taghir = false;
 
 const String matn_success = "ramz sahih ast";
 const String matn_fail = "ramz nadorost";
@@ -67,6 +68,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 void tabe(bool aya_matn_bedam , bool sehat , int n )
 {
+  taghir = true ; 
   if(aya_matn_bedam)
   {
     if(sehat)
@@ -84,6 +86,7 @@ void tabe(bool aya_matn_bedam , bool sehat , int n )
 
 void tabe(bool aya_matn_bedam , bool sehat , String n )
 {
+  taghir = true;
   if(aya_matn_bedam)
   {
     if(sehat)
@@ -103,6 +106,8 @@ void tabe(bool aya_matn_bedam , bool sehat , String n )
 void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
+  lcd.print(matn);
   // // Print a message to the LCD.
   // lcd.print("hello, world!");
   adad = 2;
@@ -111,26 +116,29 @@ void setup() {
 void loop() {
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
-  lcd.setCursor(0,0);
-  if(matnbede)
+  if(taghir)
   {
-    lcd.print(matn);
-    if(adad!=adad_khali)
+    lcd.clear();
+    lcd.setCursor(0,0);
+    if(matnbede)
     {
-      lcd.setCursor(0,1);
-      lcd.print(adad);
+      lcd.print(matn);
+      if(adad!=adad_khali)
+      {
+        lcd.setCursor(0,1);
+        lcd.print(adad);
+      }
     }
-  }
-  else
-  {
-    if(adad!=adad_khali)
+    else
     {
-      lcd.setCursor(0,0);
-      lcd.print(adad);
+      if(adad!=adad_khali)
+      {
+        lcd.setCursor(0,0);
+        lcd.print(adad);
+      }
     }
+    // print the number of seconds since reset:
+    taghir = false ; 
   }
-  delay(2000);
-  // print the number of seconds since reset:
-  lcd.clear();
 }
 
