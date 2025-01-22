@@ -45,6 +45,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 using namespace std;
 
@@ -102,20 +103,39 @@ void tabe(bool aya_matn_bedam , bool sehat , String n )
 }
 
 
-
-void setup() {
-  // set up the LCD's number of columns and rows:
-  lcd.begin(16, 2);
-  lcd.setCursor(0, 0);
-  lcd.print(matn);
-  // // Print a message to the LCD.
-  // lcd.print("hello, world!");
-  adad = 2;
+void namayesh(bool matn_bede , bool adad_bede , String matn , String adad)
+{
+  // if(taghir)
+  // {
+    lcd.clear();
+    lcd.setCursor(0,0);
+    if(matn_bede)
+    {
+      lcd.print(matn);
+      lcd.setCursor(1, 1);
+    }
+    // else
+    // {
+    //   if(adad!=adad_khali)
+    //   {
+    //     lcd.setCursor(0,0);
+    //     lcd.print(matn_adad);
+    //   }
+    // }
+    if(adad!=adad_khali)
+    {
+      if(adad_bede)
+      {
+        lcd.print(matn_adad);
+      }
+    }
+    // print the number of seconds since reset:
+    // taghir = false ; 
+  // }
 }
 
-void loop() {
-  // set the cursor to column 0, line 1
-  // (note: line 1 is the second row, since counting begins with 0):
+void namayesh()
+{
   if(taghir)
   {
     lcd.clear();
@@ -126,7 +146,7 @@ void loop() {
       if(adad!=adad_khali)
       {
         lcd.setCursor(0,1);
-        lcd.print(adad);
+        lcd.print(matn_adad);
       }
     }
     else
@@ -134,11 +154,58 @@ void loop() {
       if(adad!=adad_khali)
       {
         lcd.setCursor(0,0);
-        lcd.print(adad);
+        lcd.print(matn_adad);
       }
     }
     // print the number of seconds since reset:
     taghir = false ; 
   }
+}
+
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
+  lcd.print(matn);
+  // // Print a message to the LCD.
+  // lcd.print("hello, world!");
+  adad = 0;
+}
+
+void loop() {
+  // set the cursor to column 0, line 1
+  // (note: line 1 is the second row, since counting begins with 0):
+  // if(taghir)
+  // {
+  //   lcd.clear();
+  //   lcd.setCursor(0,0);
+  //   if(matnbede)
+  //   {
+  //     lcd.print(matn);
+  //     if(adad!=adad_khali)
+  //     {
+  //       lcd.setCursor(0,1);
+  //       lcd.print(adad);
+  //     }
+  //   }
+  //   else
+  //   {
+  //     if(adad!=adad_khali)
+  //     {
+  //       lcd.setCursor(0,0);
+  //       lcd.print(adad);
+  //     }
+  //   }
+  //   // print the number of seconds since reset:
+  //   taghir = false ; 
+  // }
+  namayesh(true , true , matn_success , matn_adad);
+  adad+=1;
+  // matn_adad=Serial.println(adad);
+  matn_adad = adad;
+  delay(500);
+  // tabe(true , true , "0000" );
+
 }
 

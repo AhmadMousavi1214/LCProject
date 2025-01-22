@@ -1,8 +1,27 @@
 #include <Key.h>
 #include <Keypad.h>
+#include <LiquidCrystal.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <BCDsegment.h>
+
+using namespace std;
+
+//amade sazi lcd;
+int adad_khali = 1000000;
+bool matnbede = true ; 
+String matn = "adadi nazadid";
+int adad = adad_khali ; 
+String matn_adad = ""; 
+bool taghir = false;
+
+const String matn_success = "ramz sahih ast";
+const String matn_fail = "ramz nadorost";
+
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
 
 // amade sazi klid ha ; 
 const byte ROWS = 4;
@@ -26,6 +45,26 @@ byte colPins[COLS] = { 5, 4, 3 };
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 String enteredDigits = "";
+
+
+void namayesh(bool matn_bede , bool adad_bede , String matn , String adad)
+{
+    lcd.clear();
+    lcd.setCursor(0,0);
+    if(matn_bede)
+    {
+      lcd.print(matn);
+      lcd.setCursor(1, 1);
+    }
+    if(adad!=adad_khali)
+    {
+      if(adad_bede)
+      {
+        lcd.print(matn_adad);
+      }
+    }
+    displaypass(matn);
+}
 
 void setup() {
   Serial.begin(9600);
@@ -72,12 +111,14 @@ void loop() {
         if (enteredDigits == password) 
         {
           Serial.println("you entered the correct password !");
+          namayesh(true , true , matn_success , enteredDigits );
           // taghir state ;
           vaziat = 1 ; 
         } 
         else 
         {
           Serial.println("you didnt entered the correct answer !");
+          namayesh(true , false , matn_fail , enteredDigits );
         }
         // }
         // else 
@@ -89,11 +130,13 @@ void loop() {
       // dorost zade ;
       else if (vaziat == 1)
       {
+        namayesh(true , false , "ramz jadid" , "" );
         vaziat = 2 ; 
         enteredDigits="" ;
       }
       else if (vaziat == 2)
       {
+        namayesh(true , false , "tayid konid" , "");
         ramz_tashih = enteredDigits ;
         enteredDigits="" ;
       }
@@ -101,10 +144,12 @@ void loop() {
       {
         if (enteredDigits==ramz_tashih)
         {
+          namayesh(true , false , "taghir yaft" , "");
           vaziat = 2 ; 
         }
         else 
         {
+          namayesh(true , false , matn_fail , "");
           ramz_tashih= "" ;
         }  
         enteredDigits= "" ;
@@ -115,6 +160,7 @@ void loop() {
       if (enteredDigits.length() >= 4) {
         // correct message in the lcd !
         Serial.println("you cant enter more than four digits !");
+        namayesh(true , false , "over flow" , "");
         enteredDigits = "" ; 
       } 
       else 
@@ -123,6 +169,7 @@ void loop() {
         {
           enteredDigits += key ;
           printDigits(enteredDigits);
+          namayesh(false , true , "" , enteredDigits);
         }
       }
     }
