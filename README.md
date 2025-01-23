@@ -113,7 +113,7 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 - - 1: password correct
 - - 2: set new password
 
-## Usaing
+## Using
 
 ```cpp:
 void loop() {
