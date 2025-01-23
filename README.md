@@ -103,15 +103,15 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 ## Impelimnting handlePasswordInput() function
 
 - this function cheks the charactor user entered with considering the state we defined for any sitiuation we can be in
-- it have three main condition :
-- - if key is *
-- - if key is #
-- - and the other keys (numbers)
+* it have three main condition :
+  * if key is *
+  * if key is #
+  * and the other keys (numbers)
 
-- in the # mode it have three state :
-- - 0: enter password
-- - 1: password correct
-- - 2: set new password
+* in the # mode it have three state :
+  * 0: enter password
+  * 1: password correct
+  * 2: set new password
 
 ## Using
 
