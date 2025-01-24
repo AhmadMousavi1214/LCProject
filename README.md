@@ -2,6 +2,13 @@
 ## Cipher project by *Arduino Mega 2560* have entering, changing password and exit state.
 Uses from *LCD-character, KeyPad, BCD-Segment* in this project to show messages and password.
 
+> ## Authors
+> - **BCDsegment:** _Mohammad Ali Ahmadian Ahmadabadi_
+> - **Keypad:** _Seyed Ahamd Mousavi Malvajerd_
+> - **Merge Files(main):** _Ali Mirzakhani_
+
+</br>
+
 # BCD Segment Library
 ## Introduction
 In LC-Project we suppose to use *bcd-segment* to show entered password and numbers. so we create special library to handle this function.
@@ -69,6 +76,7 @@ void setup(){
 	segment.DisplayPass(pass);
 }
 ```
+<br>
 
 # Keypad cofigurations
 for entering numbers and two imprtant keys # , * we used a 3 in 4 keypad which satisfy all of the requiers .
