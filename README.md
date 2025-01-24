@@ -110,8 +110,9 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 * in the # mode it have three state :
   * 0: enter password
-  * 1: password correct
-  * 2: set new password
+  * 1: password correct , we wait here until the user make a choise (change pass or exit)
+  * 2: it is for the time user deside to change the pass and enter the new pass for the first time
+  * 3: this state is for confirming the new pass . after this the corrct pass will be change to new pass ! and we go to the 0 state
 
 ## Using
 
@@ -124,4 +125,3 @@ void loop() {
     }
 }
 ```
-
