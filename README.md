@@ -116,7 +116,7 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
   * if key is #
   * and the other keys (numbers)
 
-* in the # mode it have three state :
+* in the # mode it have 4 states :
   * 0: enter password
   * 1: password correct , we wait here until the user make a choise (change pass or exit)
   * 2: it is for the time user deside to change the pass and enter the new pass for the first time
@@ -133,3 +133,42 @@ void loop() {
     }
 }
 ```
+
+# LCD
+
+## Setting up circuit connections :
+To integrate the projects, we included the required libraries at the beginning.
+
+```cpp:
+#include <Keypad.h>
+#include <LiquidCrystal.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "BCDsegment.h"
+```
+
+in which the bcdsegment library is defined in this project.
+Then we determined the connections of each circuit component.
+
+```cpp:
+const int LCD_RS = 12, LCD_EN = 11, LCD_D4 = 10, LCD_D5 = 9, LCD_D6 = 8, LCD_D7 = 7;
+LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
+
+const int changePass = 13;
+const int exitPin = 14;
+
+byte rowPins[ROWS] = { 3, 4, 5, 6 };
+byte colPins[COLS] = { 2, 1, 0 };
+
+const int BCDsegment_initial = 22;
+```
+
+where bcdsegment connections must be connected from the said number to 13 numbers after that.
+
+## Implementation of program logic
+We have used three variables to store the password entered by the person so far, as well as the correct password and the password that the person confirms during the change.
+Also, the circuit logic is based on checking which mode you are in every time.
+This means that if you are in mode 0, it means that the password has not been encrypted yet,
+mode 1 means that the password is correct, mode 2 means that you are changing the password,
+and finally, mode 3 means that you are confirming the changed password.
