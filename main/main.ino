@@ -120,7 +120,7 @@ void loop() {
     displayMessage("Enter new pass:");
     state = 2;
   }
-  if (digitalRead(exitPin) == LOW) {
+  if (digitalRead(exitPin) == LOW && state == 1) {
     state = 0;
     enteredPassword = "";
     displayMessage("Enter password:");
